@@ -1,0 +1,70 @@
+﻿@model  OnlineInspection.WebUI.Models.ProductListViewModel
+
+@{
+    ViewBag.Title = "Product List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>List of products</h2>
+
+<br />
+
+@using (Html.BeginForm("Search", "Admin", FormMethod.Post))
+{
+    @Html.TextBox("text")
+    <input type="submit" value="Submit" placeholder="Not implemented yet" />
+}
+
+<br />
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Image</th>
+            <th scope="col">Product Code</th>
+            <th scope="col">Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @item.ProductId
+                </td>
+                <td>
+                    @item.Image
+                </td>
+                <td>
+                    @Html.ActionLink(item.ProductCode, "EditProduct", "Admin", new { item.ProductId }, null)
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteProduct", "Admin"))
+                    {
+                        @Html.Hidden("ProductId", item.ProductId)
+                        <input type="submit"
+                               value="Delete now"
+                               class="btn btn-outline-danger" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="card-footer ">
+    @Html.ActionLink("Add a new New product", "CreateProduct", "Admin", null, new { @class = "btn btn-outline-dark" })
+    <span class="pagination justify-content-center">
+        @Html.PageLinks(Model.pagingInfo, x => Url.Action("List", new { page = x }))
+    </span>
+
+</div>
+
+
+
+

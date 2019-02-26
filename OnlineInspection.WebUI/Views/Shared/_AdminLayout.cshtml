@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <h2> <a class="nav-link" href="~/Product/List">Product <span class="sr-only">(current)</span></a></h2>
+                </li>
+                <li class="nav-item active">
+                    <h2>  <a class="nav-link" href="~/Supplier/List">Supplier <span class="sr-only">(current)</span></a></h2>
+                </li>
+            </ul>        
+                <a class="navbar-brand">Admin area</a>           
+        </div>
+    </nav>
+    <br />
+
+    <div>
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">@TempData["Message"]</div>
+        }
+        @{
+            var userName = HttpContext.Current.User.Identity.Name;
+
+            if (userName != "")
+            {
+                <h3>
+                    Online Shopping Store
+                    <span class="btn-info btn pull-right">
+                        @Html.ActionLink(HttpContext.Current.User.Identity.Name + "- Logout", "Logout", "Account")
+                    </span>
+                </h3>
+
+
+                Html.ActionLink(userName, "Logout", "Account");
+            }
+        }
+        @RenderBody()
+    </div>
+</body>
+</html>
+
