@@ -135,6 +135,8 @@ namespace OnlineInspection.WebUI.Controllers
             return RedirectToAction("List", "Supplier");
         }
 
+       
+
         //[HttpPost]
         //public ActionResult Search(string text)
         //{

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<OnlineInspection.Domain.Entities.Supplier>
+
+@using OnlineInspection.Domain.Entities;
+
+@{
+    ViewBag.Title = "Supplier List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Supplier List</h2>
+
+<ul>
+    @foreach (Supplier item in Model)
+    {
+        <li>
+            @Html.ActionLink(item.CompanyName, "Details", "Supplier", new { id = item.SupplierId }, null)
+        </li>
+    }
+
+</ul>
+

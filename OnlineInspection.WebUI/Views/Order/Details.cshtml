@@ -1,0 +1,58 @@
+﻿@using OnlineInspection.Domain.Entities
+
+@model IEnumerable<ItemOrder>
+
+
+@{
+    ViewBag.Title = "Order Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Order Details</h2>
+
+<table class="table table-striped table-hover table-bordered col-md-4" style="margin:auto !important">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            Product ID
+        </th>
+        <th>
+            Product Code
+        </th>
+        <th>
+            Description of product
+        </th>
+        <th>
+            Picture of product
+        </th>
+    </tr>
+
+    @foreach (ItemOrder item in Model)
+    {
+        <tr>
+            <th>
+                @item.OrderId
+            </th>
+            <th>
+                @item.ProductId
+            </th>
+            <th>
+                Codigo do Produto aqui
+            </th>
+            <th>
+                Descricao tem que vir aqui
+            </th>
+            <th>
+                Descricao tem que vir aqui
+            </th>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Back to Order list", "Index")
+
+
+
+

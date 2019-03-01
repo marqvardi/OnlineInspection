@@ -1,0 +1,40 @@
+﻿@using OnlineInspection.WebUI.Models
+
+@model IEnumerable<OrderListViewModel>
+
+@{
+    ViewBag.Title = "Order List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Order List</h2>
+
+<table class="table table-striped table-hover table-bordered col-md-4" style="margin:auto !important">
+    <tr>
+        <th>
+            Company Name
+        </th>
+        <th>
+            So Marcas reference
+        </th>
+        <th>
+            China Invoice
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="color:red">
+                @Html.ActionLink(item.Supplier.CompanyName, "ItemOrder", "Order", new { id = item.order.OrderId }, null)
+            </td>
+            <td>
+                @Html.ActionLink(item.order.SMReference, "ItemOrder", "Order", new { id = item.order.OrderId }, null)
+            </td>
+
+            <td>
+                @Html.ActionLink(item.order.ChinaInvoice, "ItemOrder", "Order", new { id = item.order.OrderId }, null)
+            </td>
+        </tr>
+    }
+</table>

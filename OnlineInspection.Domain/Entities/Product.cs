@@ -11,6 +11,7 @@ namespace OnlineInspection.Domain.Entities
     {
         public int ProductId { get; set; }
 
+        [Display(Name ="Product code")]
         [Required(ErrorMessage = "A code is required.")]
         public string ProductCode { get; set; }
 

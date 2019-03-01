@@ -23,7 +23,7 @@ namespace OnlineInspection.WebUI.HtmlHelpers
                     tag.AddCssClass("Selected");
                     tag.AddCssClass("btn-primary");
                 }
-                tag.AddCssClass("btn btn-default");
+                tag.AddCssClass("btn btn-outline-dark");
                 result.Append(tag.ToString());
             }
             return MvcHtmlString.Create(result.ToString());

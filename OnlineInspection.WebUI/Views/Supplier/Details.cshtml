@@ -1,0 +1,47 @@
+﻿@model OnlineInspection.Domain.Entities.Supplier
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<table class="table table-striped table-hover table-bordered col-md-10" style="margin:auto !important">
+    <tr>
+        <td>
+            Supplier ID:
+        </td>
+        <td>
+            @Model.SupplierId
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Company Name:
+        </td>
+        <td>
+            @Model.CompanyName
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Contact:
+        </td>
+        <td>
+            @Model.Contact
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Email:
+        </td>
+        <td>
+            @Model.Email
+        </td>
+    </tr>
+
+</table>
+
+@Html.ActionLink("Back to List", "Index")
+

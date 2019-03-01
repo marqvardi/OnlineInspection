@@ -5,19 +5,20 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>List of products</h2>
+<h2 style="text-align:center">List of products</h2>
 
 <br />
 
-@using (Html.BeginForm("Search", "Admin", FormMethod.Post))
-{
-    @Html.TextBox("text")
-    <input type="submit" value="Submit" placeholder="Not implemented yet" />
-}
-
+<div style="text-align:center">
+    @using (Html.BeginForm("Search", "Admin", FormMethod.Post))
+    {
+        @Html.TextBox("text")
+        <input type="submit" value="Submit" placeholder="Not implemented yet" />
+    }
+</div>
 <br />
 
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-hover table-bordered col-md-10" style="margin:auto !important">
     <thead>
         <tr>
             <th scope="col">ID</th>

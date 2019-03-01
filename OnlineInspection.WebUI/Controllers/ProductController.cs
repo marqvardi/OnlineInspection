@@ -42,6 +42,6 @@ namespace OnlineInspection.WebUI.Controllers
             };
 
             return View(model);
-        }       
+        }
     }
 }

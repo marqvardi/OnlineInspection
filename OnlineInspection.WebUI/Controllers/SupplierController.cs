@@ -1,4 +1,5 @@
 ﻿using OnlineInspection.Domain.Abstract;
+using OnlineInspection.Domain.Entities;
 using OnlineInspection.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,9 @@ namespace OnlineInspection.WebUI.Controllers
         // GET: Supplier
         public ActionResult Index()
         {
-            return View();
+            List<Supplier> suppliers = repository.Suppliers.ToList();
+
+            return View(suppliers);
         }
 
         public ViewResult List(int page =1)
@@ -42,6 +45,13 @@ namespace OnlineInspection.WebUI.Controllers
             };
 
             return View(model);
+        }
+
+        public ActionResult Details(int id)
+        {
+            Supplier sup = repository.Suppliers.Single(s => s.SupplierId == id);
+
+            return View(sup);
         }
     }
 }
