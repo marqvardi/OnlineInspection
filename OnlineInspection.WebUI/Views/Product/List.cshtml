@@ -58,7 +58,7 @@
     </tbody>
 </table>
 
-<div class="card-footer ">
+<div class="card-footer  ">
     @Html.ActionLink("Add a new New product", "CreateProduct", "Admin", null, new { @class = "btn btn-outline-dark" })
     <span class="pagination justify-content-center">
         @Html.PageLinks(Model.pagingInfo, x => Url.Action("List", new { page = x }))

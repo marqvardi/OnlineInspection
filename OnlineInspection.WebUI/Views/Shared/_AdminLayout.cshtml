@@ -24,7 +24,7 @@
                     <h2>  <a class="nav-link" href="~/Supplier/List">Supplier <span class="sr-only">(current)</span></a></h2>
                 </li>
                 <li class="nav-item active">
-                    <h2>  <a class="nav-link" href="~/Order/Index">Orders <span class="sr-only">(current)</span></a></h2>
+                    <h2>  <a class="nav-link" href="~/Admin/OrderList">Orders <span class="sr-only">(current)</span></a></h2>
                 </li>
             </ul>        
                 <a class="navbar-brand">Admin area</a>           
@@ -54,6 +54,10 @@
             }
         }
         @RenderBody()
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
     </div>
 </body>
 </html>

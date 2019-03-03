@@ -248,6 +248,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\OrderForm.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -285,16 +286,17 @@
     <Content Include="Views\Supplier\List.cshtml" />
     <Content Include="Views\Admin\EditSupplier.cshtml" />
     <Content Include="Views\Admin\CreateSupplier.cshtml" />
-    <Content Include="Views\Order\List.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Supplier\Details.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Order\Details.cshtml" />
-    <Content Include="Views\Order\ItemOrder.cshtml" />
+    <Content Include="Views\Admin\OrderList.cshtml" />
+    <Content Include="Views\Admin\OrderDetails.cshtml" />
+    <Content Include="Views\Admin\ItemOrder.cshtml" />
+    <Content Include="Views\Admin\TabelaTeste.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

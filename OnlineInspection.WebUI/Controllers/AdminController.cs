@@ -1,5 +1,6 @@
 ﻿using OnlineInspection.Domain.Abstract;
 using OnlineInspection.Domain.Entities;
+using OnlineInspection.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,25 @@ namespace OnlineInspection.WebUI.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IProductRepository repository;
+        public int PageSize = 10;
+        private readonly IOrderRepository repositoryOrder;
         private readonly ISupplierRepository repositorySupplier;
+        private readonly IItemOrderRepository repositoryItemOrder;
+        private readonly IProductRepository repositoryProduct;
 
-        public AdminController(IProductRepository repo, ISupplierRepository repo1)
+        public AdminController(IOrderRepository repo, ISupplierRepository RepoSupplier,
+             IProductRepository repoProduct, IItemOrderRepository repoItemOrder)
         {
-            repository = repo;
-            repositorySupplier = repo1;
+            repositoryOrder = repo;
+            repositorySupplier = RepoSupplier;
+            repositoryItemOrder = repoItemOrder;
+            repositoryProduct = repoProduct;
         }
 
         public ViewResult EditProduct(int ProductId)
         {
             Product product = new Product();
-            product = repository.Products.FirstOrDefault(p => p.ProductId == ProductId);
+            product = repositoryProduct.Products.FirstOrDefault(p => p.ProductId == ProductId);
 
             return View(product);
         }
@@ -32,7 +39,7 @@ namespace OnlineInspection.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.SaveProduct(product);
+                repositoryProduct.SaveProduct(product);
                 TempData["Message"] = string.Format("{0} has been saved.",
                     product.ProductCode);
                 return RedirectToAction("List", "Product");
@@ -54,7 +61,7 @@ namespace OnlineInspection.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.SaveProduct(product);
+                repositoryProduct.SaveProduct(product);
                 TempData["Message"] = string.Format("{0} has been created.",
                     product.ProductCode);
                 return RedirectToAction("List", "Product");
@@ -69,7 +76,7 @@ namespace OnlineInspection.WebUI.Controllers
         [HttpPost]
         public ActionResult DeleteProduct(int productId)
         {
-            Product deleteProduct = repository.DeleteProduct(productId);
+            Product deleteProduct = repositoryProduct.DeleteProduct(productId);
             if (deleteProduct != null)
             {
                 TempData["Message"] = string.Format("{0} was deleted.", deleteProduct.ProductCode);
@@ -133,9 +140,79 @@ namespace OnlineInspection.WebUI.Controllers
                 TempData["Message"] = string.Format("{0} was deleted.", deleteSupplier.CompanyName);
             }
             return RedirectToAction("List", "Supplier");
+        }        
+
+        public ViewResult OrderList(int page = 1)
+        {
+            List<Order> orders = repositoryOrder.Orders.ToList();
+            List<Supplier> sup = repositorySupplier.Suppliers.ToList();
+
+            var model = from o in orders
+                        join s in sup
+                        on o.SupplierId equals s.SupplierId into os
+                        from s in os.DefaultIfEmpty()
+                        select new OrderListViewModel
+                        {
+                            order = o,
+                            Supplier = s,
+                            PagingInfo = new PagingInfo
+                            {
+                                CurrentPage = page,
+                                ItemsPerPage = PageSize,
+                                TotalItems = repositoryOrder.Orders.Count()
+                            }
+                        };
+            return View(model);
         }
 
-       
+        public ViewResult OrderDetails(int id)
+        {
+            List<ItemOrder> itemOrders = repositoryItemOrder.itemOrders.Where(o => o.OrderId == id).ToList();
+
+            return View(itemOrders);
+        }
+
+        public ViewResult ItemOrder(int id, int page = 1)
+        {
+            var model = from i in repositoryItemOrder.itemOrders
+                        join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
+                        where i.OrderId == id                        
+                        orderby i.ProductId 
+                        from p in ip.DefaultIfEmpty()                        
+                        select new ItemOrderListViewModel                        
+                        {
+                            itemOrder = i,
+                            product = p,
+                            pagingInfo = new PagingInfo
+                            {
+                                CurrentPage = page,
+                                ItemsPerPage = PageSize,
+                                TotalItems = repositoryOrder.Orders.Count()
+                            }
+                        };
+            return View(model);
+        }
+
+        public ViewResult TabelaTeste(int id, int page = 1)
+        {
+            var model = from p in repositoryProduct.Products
+                        join i in repositoryItemOrder.itemOrders on p.ProductId equals i.ProductId 
+                        where i.ProductId == id 
+                        orderby i.ProductId                       
+                        select new ItemOrderListViewModel
+                        {
+                            itemOrder = i,
+                            product = p,
+                            pagingInfo = new PagingInfo
+                            {
+                                CurrentPage = page,
+                                ItemsPerPage = PageSize,
+                                TotalItems = repositoryOrder.Orders.Count()
+                            }
+                        };
+            return View(model);
+        }
+
 
         //[HttpPost]
         //public ActionResult Search(string text)

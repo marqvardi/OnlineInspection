@@ -1,0 +1,64 @@
+﻿@using OnlineInspection.WebUI.Models
+    
+@model IEnumerable<ItemOrderListViewModel>
+
+@{
+    ViewBag.Title = "Item Order";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="text-align:center">Item Order</h2>
+
+<div class="form-horizontal col-md-10" style="margin:auto">
+
+    <table class="table table-striped table-hover table-bordered col-md-10" style="margin:auto !important">
+        <tr>
+            <th>
+                Order ID
+            </th>
+            <th>
+                Product ID
+            </th>
+            <th>
+                Image (pro)
+            </th>
+            <th>
+                Product Code (pro)
+            </th>
+            <th>
+                Description (pro)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="color:red">
+                    @Html.ActionLink(item.itemOrder.OrderId.ToString(), "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.itemOrder.ProductId.ToString(), "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.product.Image, "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.product.ProductCode, "tabelateste", "Admin", new { id = item.itemOrder.OrderId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.product.Description, "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<br />
+
+<div class="form-horizontal col-md-8" style="margin:auto">
+
+    @Html.ActionLink("Back to Order List", "OrderList", "Admin")
+</div>
+   
+
+

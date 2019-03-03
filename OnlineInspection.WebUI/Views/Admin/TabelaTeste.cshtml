@@ -1,0 +1,93 @@
+﻿@using OnlineInspection.WebUI.Models
+
+@model IEnumerable<ItemOrderListViewModel>
+
+@{
+    ViewBag.Title = "Order List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="text-align:center">Order List</h2>
+
+<div class="form-horizontal col-md-10" style="margin:auto">
+
+
+    <table class="table table-striped table-hover table-bordered col-md-4" style="margin:auto !important">
+        <tr>
+            <th> Product ID </th>
+            <th> product code </th>
+            <th> Description problem </th>
+            <th> Picture problem </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.product.ProductId.ToString(), "ItemOrder", "Admin", new { id = item.product.ProductCode }, null)
+                </td>
+                <td style="color:red">
+                    @Html.ActionLink(item.product.ProductCode, "ItemOrder", "Admin", new { id = item.product.ProductCode }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.itemOrder.DescriptionProblem, "ItemOrder", "Admin", new { id = item.product.ProductCode }, null)
+                </td>
+
+                <td>
+                    @Html.ActionLink(item.itemOrder.PictureProblem, "ItemOrder", "Admin", new { id = item.product.ProductCode }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+@*@model OnlineInspection.Domain.Entities.Product
+
+    @{
+        ViewBag.Title = "Tabela Teste";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+
+    <h2 style="text-align:center">Tabela Teste</h2>
+
+
+    <div class="container">
+        <table id="myTable" class=" table order-list">
+            <thead>
+                <tr>
+                    <td>Picture</td>
+                    <td>Description of the problem</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="">
+                        <input type="text" name="Picture" class="form-control" />
+                    </td>
+                    <td class="">
+                        <input type="text" name="Description" class="form-control" />
+                    </td>
+                    <td class="">
+                        <a class="deleteRow"></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: left;">
+                        <input type="button" class="btn btn-md btn-outline-dark" id="addrow" value="Add Row" />
+                        <input type="submit" class="float-lg-right btn btn-md btn-outline-dark" id="addrow" value="Submit" />
+                    </td>
+                </tr>
+                <tr></tr>
+            </tfoot>
+        </table>
+    </div>
+
+    @section scripts {
+        <script src="~/Scripts/OrderForm.js"></script>
+    }*@
+
+
