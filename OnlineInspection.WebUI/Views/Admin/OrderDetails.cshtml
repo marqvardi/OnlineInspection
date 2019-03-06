@@ -1,58 +1,52 @@
 ﻿@using OnlineInspection.Domain.Entities
 
-@model IEnumerable<ItemOrder>
+
+@model  IEnumerable<ItemOrder>
 
 
 @{
-    ViewBag.Title = "Order Details";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+        ViewBag.Title = "Order Details";
+
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Order Details</h2>
+<h2>OrderDetails</h2>
 
-<table class="table table-striped table-hover table-bordered col-md-4" style="margin:auto !important">
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
     <tr>
         <th>
-            Order ID
+            @Html.DisplayNameFor(model => model.ProductId)
         </th>
         <th>
-            Product ID
+            @Html.DisplayNameFor(model => model.OrderId)
         </th>
         <th>
-            Product Code
+            @Html.DisplayNameFor(model => model.PictureProblem)
         </th>
-        <th>
-            Description of product
-        </th>
-        <th>
-            Picture of product
-        </th>
+        <th></th>
     </tr>
 
-    @foreach (ItemOrder item in Model)
-    {
-        <tr>
-            <th>
-                @item.OrderId
-            </th>
-            <th>
-                @item.ProductId
-            </th>
-            <th>
-                Codigo do Produto aqui
-            </th>
-            <th>
-                Descricao tem que vir aqui
-            </th>
-            <th>
-                Descricao tem que vir aqui
-            </th>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PictureProblem)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DescriptionProblem }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DescriptionProblem }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DescriptionProblem })
+        </td>
+    </tr>
+}
+
 </table>
-
-@Html.ActionLink("Back to Order list", "OrderList", "Admin")
-
-
-
-

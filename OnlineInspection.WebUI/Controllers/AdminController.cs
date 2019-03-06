@@ -4,6 +4,7 @@ using OnlineInspection.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -140,7 +141,7 @@ namespace OnlineInspection.WebUI.Controllers
                 TempData["Message"] = string.Format("{0} was deleted.", deleteSupplier.CompanyName);
             }
             return RedirectToAction("List", "Supplier");
-        }        
+        }
 
         public ViewResult OrderList(int page = 1)
         {
@@ -165,40 +166,33 @@ namespace OnlineInspection.WebUI.Controllers
             return View(model);
         }
 
-        public ViewResult OrderDetails(int id)
-        {
-            List<ItemOrder> itemOrders = repositoryItemOrder.itemOrders.Where(o => o.OrderId == id).ToList();
+        //Not in use
+        //public ViewResult OrderDetails(int id)
+        //{
+        //    IEnumerable<ItemOrder> itemOrders = repositoryItemOrder.itemOrders.Where(o => o.OrderId == id).ToList();
 
-            return View(itemOrders);
-        }
+        //    IEnumerable<ItemOrder> itemOrders1 = itemOrders
+        //        .GroupBy(p => p.ProductId)
+        //        .Select(group => group.First());
+
+        //    return View(itemOrders1);
+        //}
+
 
         public ViewResult ItemOrder(int id, int page = 1)
         {
-            var model = from i in repositoryItemOrder.itemOrders
-                        join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
-                        where i.OrderId == id                        
-                        orderby i.ProductId 
-                        from p in ip.DefaultIfEmpty()                        
-                        select new ItemOrderListViewModel                        
-                        {
-                            itemOrder = i,
-                            product = p,
-                            pagingInfo = new PagingInfo
-                            {
-                                CurrentPage = page,
-                                ItemsPerPage = PageSize,
-                                TotalItems = repositoryOrder.Orders.Count()
-                            }
-                        };
-            return View(model);
-        }
+            IEnumerable<ItemOrder> itemOrders = repositoryItemOrder.itemOrders.Where(o => o.OrderId == id).ToList();
 
-        public ViewResult TabelaTeste(int id, int page = 1)
-        {
-            var model = from p in repositoryProduct.Products
-                        join i in repositoryItemOrder.itemOrders on p.ProductId equals i.ProductId 
-                        where i.ProductId == id 
-                        orderby i.ProductId                       
+            IEnumerable<ItemOrder> itemOrders1 = itemOrders
+                .GroupBy(p => p.ProductId)
+                .Select(group => group.First());
+
+
+            var model = from i in itemOrders1
+                        join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
+                        where i.OrderId == id                       
+                        orderby i.ProductId
+                        from p in ip.DefaultIfEmpty()
                         select new ItemOrderListViewModel
                         {
                             itemOrder = i,
@@ -210,9 +204,47 @@ namespace OnlineInspection.WebUI.Controllers
                                 TotalItems = repositoryOrder.Orders.Count()
                             }
                         };
+
             return View(model);
         }
 
+        public ViewResult ProblemItemList(int id,int productId, int page = 1)
+        {
+            var model = from i in repositoryItemOrder.itemOrders
+                        join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
+                        join o in repositoryOrder.Orders on i.OrderId equals o.OrderId
+                        where (i.OrderId == id && i.ProductId == productId)
+                        orderby i.ProductId
+                        from p in ip.DefaultIfEmpty()
+                        select new ItemOrderListViewModel
+                        {
+                            itemOrder = i,
+                            product = p,
+                            pagingInfo = new PagingInfo
+                            {
+                                CurrentPage = page,
+                                ItemsPerPage = PageSize,
+                                TotalItems = repositoryOrder.Orders.Count()
+                            }
+                        };
+
+            return View(model);
+        }
+
+        
+        public ActionResult AddNewInspectionDetail()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult AddNewInspectionDetail(ItemOrder item)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+               
+        //    }
+        //}
 
         //[HttpPost]
         //public ActionResult Search(string text)

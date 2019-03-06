@@ -290,9 +290,10 @@
     <Content Include="Views\Supplier\Details.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
-    <Content Include="Views\Admin\OrderDetails.cshtml" />
     <Content Include="Views\Admin\ItemOrder.cshtml" />
-    <Content Include="Views\Admin\TabelaTeste.cshtml" />
+    <Content Include="Views\Admin\ProblemItemList.cshtml" />
+    <Content Include="Views\Admin\OrderDetails.cshtml" />
+    <Content Include="Views\Admin\AddNewInspectionDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

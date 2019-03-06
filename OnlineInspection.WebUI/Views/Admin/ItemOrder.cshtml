@@ -1,13 +1,13 @@
 ﻿@using OnlineInspection.WebUI.Models
     
-@model IEnumerable<ItemOrderListViewModel>
+@model  IEnumerable<ItemOrderListViewModel>
 
 @{
-    ViewBag.Title = "Item Order";
+    ViewBag.Title = "Order Detail";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 style="text-align:center">Item Order</h2>
+<h2 style="text-align:center">Order detail</h2>
 
 <div class="form-horizontal col-md-10" style="margin:auto">
 
@@ -34,19 +34,19 @@
         {
             <tr>
                 <td style="color:red">
-                    @Html.ActionLink(item.itemOrder.OrderId.ToString(), "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                    @Html.ActionLink(item.itemOrder.OrderId.ToString(), "ProblemItemList", "Admin", new { orderId = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.itemOrder.ProductId.ToString(), "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                    @Html.ActionLink(item.itemOrder.ProductId.ToString(), "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.product.Image, "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                    @Html.ActionLink(item.product.Image, "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.product.ProductCode, "tabelateste", "Admin", new { id = item.itemOrder.OrderId }, null)
+                    @Html.ActionLink(item.product.ProductCode, "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.product.Description, "ItemOrder", "Admin", new { id = item.itemOrder.OrderId }, null)
+                    @Html.ActionLink(item.product.Description, "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
                 </td>
             </tr>
         }

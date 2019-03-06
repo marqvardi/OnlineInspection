@@ -11,7 +11,7 @@ namespace OnlineInspection.Domain.Abstract
     {
         IEnumerable<ItemOrder> itemOrders { get; }
 
-        //void SaveProduct(Product product);
+        void SaveProblem(ItemOrder itemOrder);
         //Product DeleteProduct(int productId);
     }
 }

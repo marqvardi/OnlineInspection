@@ -8,8 +8,8 @@ namespace OnlineInspection.WebUI.Models
 {
     public class ItemOrderListViewModel
     {
-        public ItemOrder itemOrder { get; set; }
-        public Product product { get; set; }
+       public ItemOrder itemOrder { get; set; }
+       public Product product { get; set; }
 
         public PagingInfo pagingInfo { get; set; }
 

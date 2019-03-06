@@ -31,7 +31,7 @@ namespace OnlineInspection.WebUI.Controllers
         {
             SupplierListViewModel model = new SupplierListViewModel
             {
-                Suppliers = repository.Suppliers
+                Suppliers = repository.Suppliers                
                             .OrderBy(p => p.SupplierId)
                             .Skip((page - 1) * PageSize)
                             .Take(PageSize),

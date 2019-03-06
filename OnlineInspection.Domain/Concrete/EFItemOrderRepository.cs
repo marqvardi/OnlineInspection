@@ -16,5 +16,26 @@ namespace OnlineInspection.Domain.Concrete
         {
             get { return context.itemOrders; }
         }
+
+        public void SaveProblem(ItemOrder itemOrder)
+        {
+            if (itemOrder.ProductId == 0)
+            {
+                context.itemOrders.Add(itemOrder);
+            }
+            else
+            {
+                //ItemOrder Dbentry = context.itemOrders.Find(itemOrder.ProductId);
+                // if (Dbentry != null)
+                // {
+                ItemOrder Dbentry = new ItemOrder();
+                    Dbentry.ProductId = itemOrder.ProductId;
+                    Dbentry.OrderId = itemOrder.OrderId;
+                    Dbentry.DescriptionProblem = itemOrder.DescriptionProblem;
+                    Dbentry.PictureProblem = itemOrder.PictureProblem;
+               // }
+            }
+            context.SaveChanges();
+        }
     }
 }
