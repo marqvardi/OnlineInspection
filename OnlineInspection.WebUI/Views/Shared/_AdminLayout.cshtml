@@ -14,22 +14,84 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
+
+        @*<div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <h2> <a class="nav-link" href="~/Product/List">Product <span class="sr-only">(current)</span></a></h2>
+                    </li>
+                    <li class="nav-item active">
+                        <h2>  <a class="nav-link" href="~/Supplier/List">Supplier <span class="sr-only">(current)</span></a></h2>
+                    </li>
+                    <li class="nav-item active">
+                        <h2>  <a class="nav-link" href="~/Admin/OrderList">Orders <span class="sr-only">(current)</span></a></h2>
+                    </li>
+                </ul>
+                    <a class="navbar-brand">Admin area</a>
+            </div>*@
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size:30px">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <h2> <a class="nav-link" href="~/Product/List">Product <span class="sr-only">(current)</span></a></h2>
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <h2>  <a class="nav-link" href="~/Supplier/List">Supplier <span class="sr-only">(current)</span></a></h2>
+                @*<li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>*@
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Products
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="~/Product/ProductList">Browse products</a>
+                        <a class="dropdown-item" href="~/Admin/CreateProduct">New product</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </li>
-                <li class="nav-item active">
-                    <h2>  <a class="nav-link" href="~/Admin/OrderList">Orders <span class="sr-only">(current)</span></a></h2>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Suppliers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="~/Supplier/List">Browse supplier</a>
+                        <a class="dropdown-item" href="~/Admin/CreateSupplier">New supplier</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </li>
-            </ul>        
-                <a class="navbar-brand">Admin area</a>           
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Orders
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="~/Admin/OrderList">Browse orders</a>
+                        <a class="dropdown-item" href="~/Admin/CreateOrder">New order</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+
+
+                @*<li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>*@
+            </ul>
+            <a class="navbar-brand">Admin area</a>
+            @*<form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>*@
         </div>
     </nav>
+    <br />
+    <br />
+   
+    <br />
     <br />
 
     <div>

@@ -18,7 +18,7 @@ namespace OnlineInspection.Domain.Entities
         [Required(ErrorMessage = "A description is required.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "An image is required.")]
+        //[Required(ErrorMessage = "An image is required.")]
         public string Image { get; set; }       
     }
 }

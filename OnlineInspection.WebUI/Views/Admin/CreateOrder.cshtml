@@ -1,0 +1,94 @@
+﻿@using OnlineInspection.WebUI.Models
+
+@model OrderListViewModel
+
+
+@{
+    ViewBag.Title = "CreateOrder";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="text-align:center">Create a new order</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal col-md-6" style="margin:auto">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            Company Name
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Supplier.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Supplier.SupplierId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            SM Reference
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.order.SMReference, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.order.SMReference, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            Invoice number
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.order.ChinaInvoice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.order.ChinaInvoice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div style="text-align:center">
+    @Html.ActionLink("Back to List", "OrderList", "Admin")
+</div>
+
+<div class="card mb-10 border-dark mb-3" style="max-width: 1240px; margin: auto  ">
+    <div class="card-header">
+        <h4>
+            Product Code: <span class="badge badge-secondary"> @@Codigo aqui</span>
+            <span class="badge badge-secondary float-md-right"> @@price here</span>  <a class="float-md-right">Price:</a>
+        </h4>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="~/IMG/tmpC2FA.JPG" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div class="d-inline-flex p-2 bd-highlight">
+                    
+                    <p>Description here</p>
+                </div>
+
+                <span class="float-md-right"><input type="checkbox" onclick="return false" readonly="readonly" />Active</span>
+
+                <hr />
+                <div class="justify-content-between" style="font-size:20px">
+                    <label class="d-flex justify ">Carton details</label>
+                    <span class="badge badge-pill badge-primary">Height: @@Height</span>
+                    <span class="badge badge-pill badge-primary">Width: @@Width</span>
+                    <span class="badge badge-pill badge-primary">Deepness: @@Deepness</span>
+                    <span class="badge badge-pill badge-primary">Qty per carton: @@carton</span>
+                    <span class="badge badge-pill badge-primary">Gross weight: @@carton</span>
+                    <span class="badge badge-pill badge-primary">Net weight: @@carton</span>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

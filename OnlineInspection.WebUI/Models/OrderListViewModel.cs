@@ -14,9 +14,8 @@ namespace OnlineInspection.WebUI.Models
         public PagingInfo PagingInfo { get; set; }
         
         public IEnumerable<Order> Orders { get; set; }
-        public IEnumerable<Supplier> Suppliers { get; set; }        
-        //public IEnumerable<OrderList> orderLists { get; set; }
-
+        public IEnumerable<Supplier> Suppliers { get; set; }
+        public IEnumerable<Product> Products { get; set; }
         //public IEnumerable<ItemOrder> itemOrders { get; set; }
 
     }

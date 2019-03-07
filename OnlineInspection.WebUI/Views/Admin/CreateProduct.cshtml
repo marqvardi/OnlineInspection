@@ -7,46 +7,79 @@
 
 <h2 style="text-align:center">Create a new product</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal col-md-6" style="margin:auto">
-        <h4>Product</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProductCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProductCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="form-group">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        <div class="form-horizontal col-md-6" style="margin:auto">
+            <h4>Product</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductCode, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="fileUpload btn btn-default">
+                    <input id="uploadBtn" type="file" class="upload" multiple="multiple" name="imagem" />
+                </div>
+                <div id="upload_prev"></div>
+                <div style="clear:both;"></div>
+            </div>
+
+            @*<div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-outline-dark" />
+            @*<div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <p style="margin-left:30px"><span class="input-group-text" id="inputGroupFileAddon01">Upload your picture.</span> </p>
+            </div>
+
+            <div class="custom-file">
+                <p style="margin-left:30px"> <input type="file" class="custom-file-input" name="imagem" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> </p>
+                <p style="margin-left:30px">  <br /><label class="custom-file-label" for="inputGroupFile01">Choose file</label> </p>
+            </div>
+        </div>*@
+
+
+            @*<input id="uploadFile" placeholder="Add files from My Computer" class="steptextboxq3" />
+        <div class="fileUpload btn btn-primary">
+            <span>Browse</span>
+
+            <input id="uploadBtn" type="file" class="upload" multiple="multiple" name="imagem" />
+        </div>
+        <input id="filename" type="text" />
+        <div id="upload_prev"></div>
+        <div style="clear:both;"></div>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-outline-dark" />
+                </div>
             </div>
         </div>
     </div>
 }
 
 <div class="form-horizontal col-md-6" style="margin:auto">
-    @Html.ActionLink("Back to List", "List", "Product")
+    @Html.ActionLink("Back to List", "ProductList", "Product")
 </div>

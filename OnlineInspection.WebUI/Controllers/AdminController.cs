@@ -3,6 +3,7 @@ using OnlineInspection.Domain.Entities;
 using OnlineInspection.WebUI.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -38,18 +39,34 @@ namespace OnlineInspection.WebUI.Controllers
         [HttpPost]
         public ActionResult EditProduct(Product product)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            var file = Request.Files["imagem"];
+
+            if (file.FileName == "")
             {
-                repositoryProduct.SaveProduct(product);
+                repositoryProduct.SaveProductNoImage(product);
                 TempData["Message"] = string.Format("{0} has been saved.",
                     product.ProductCode);
                 return RedirectToAction("List", "Product");
+
             }
-            else
-            {
-                //Something wrong with values
-                return View(product);
-            }
+            var originalExtension = Path.GetExtension(file.FileName);
+            var tempFileName = Path.ChangeExtension(Path.GetFileName(Path.GetTempFileName()), originalExtension);
+
+            product.Image = tempFileName;
+            file.SaveAs(Server.MapPath($"~/IMG/{tempFileName}"));
+
+            repositoryProduct.SaveProduct(product);
+            TempData["Message"] = string.Format("{0} has been saved.",
+                product.ProductCode);
+            return RedirectToAction("List", "Product");
+            //}
+            //else
+            //{
+            //    //Something wrong with values
+            //    return View(product);
+            //}
         }
 
         public ViewResult CreateProduct()
@@ -60,18 +77,25 @@ namespace OnlineInspection.WebUI.Controllers
         [HttpPost]
         public ActionResult CreateProduct(Product product)
         {
-            if (ModelState.IsValid)
-            {
-                repositoryProduct.SaveProduct(product);
-                TempData["Message"] = string.Format("{0} has been created.",
-                    product.ProductCode);
-                return RedirectToAction("List", "Product");
-            }
-            else
-            {
-                //Something wrong with values
-                return View(product);
-            }
+            var file = Request.Files["imagem"];
+            var originalExtension = Path.GetExtension(file.FileName);
+            var tempFileName = Path.ChangeExtension(Path.GetFileName(Path.GetTempFileName()), originalExtension);
+
+            product.Image = tempFileName;
+            file.SaveAs(Server.MapPath($"~/IMG/{tempFileName}"));
+
+            // if (ModelState.IsValid)
+            //{
+            repositoryProduct.SaveProduct(product);
+            TempData["Message"] = string.Format("{0} has been created.",
+                product.ProductCode);
+            return RedirectToAction("List", "Product");
+            //// }
+            // else
+            // {
+            //     //Something wrong with values
+            //     return View(product);
+            // }
         }
 
         [HttpPost]
@@ -190,7 +214,7 @@ namespace OnlineInspection.WebUI.Controllers
 
             var model = from i in itemOrders1
                         join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
-                        where i.OrderId == id                       
+                        where i.OrderId == id
                         orderby i.ProductId
                         from p in ip.DefaultIfEmpty()
                         select new ItemOrderListViewModel
@@ -208,7 +232,7 @@ namespace OnlineInspection.WebUI.Controllers
             return View(model);
         }
 
-        public ViewResult ProblemItemList(int id,int productId, int page = 1)
+        public ViewResult ProblemItemList(int id, int productId, int page = 1)
         {
             var model = from i in repositoryItemOrder.itemOrders
                         join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
@@ -231,10 +255,30 @@ namespace OnlineInspection.WebUI.Controllers
             return View(model);
         }
 
-        
+
         public ActionResult AddNewInspectionDetail()
         {
             return View();
+        }
+
+        public ActionResult CreateOrder()
+        {
+            //Order order = new Order();
+            //Supplier supplier = new Supplier();
+
+            //supplier.Contact = "Maria";
+            //supplier.Email = "wdwadwa@fass.com";
+            //supplier.CompanyName = "Empresa nome aqui";
+            //order.ChinaInvoice = "China invoice numero aqui";
+            //order.SMReference = "PRocesso 2.000";
+
+            //OrderListViewModel o = new OrderListViewModel
+            //{
+            //    order = order,
+            //    Supplier = supplier,                 
+            //};
+                        
+            return View(new OrderListViewModel());
         }
 
         //[HttpPost]
@@ -242,7 +286,7 @@ namespace OnlineInspection.WebUI.Controllers
         //{
         //    if (ModelState.IsValid)
         //    {
-               
+
         //    }
         //}
 

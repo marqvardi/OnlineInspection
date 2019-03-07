@@ -26,7 +26,25 @@ namespace OnlineInspection.Domain.Concrete
                 context.SaveChanges();
             }
             return DbEntry;
-        }      
+        }
+
+        public void SaveProductNoImage(Product product)
+        {
+            if (product.ProductId == 0)
+            {
+                context.Products.Add(product);
+            }
+            else
+            {
+                Product Dbentry = context.Products.Find(product.ProductId);
+                if (Dbentry != null)
+                {
+                    Dbentry.ProductCode = product.ProductCode;
+                    Dbentry.Description = product.Description;                   
+                }
+            }
+            context.SaveChanges();
+        }
 
         public void SaveProduct(Product product)
         {

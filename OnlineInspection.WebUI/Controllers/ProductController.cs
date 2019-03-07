@@ -43,5 +43,25 @@ namespace OnlineInspection.WebUI.Controllers
 
             return View(model);
         }
+
+        public ViewResult ProductList(int page = 1)
+        {
+            ProductListViewModel model = new ProductListViewModel
+            {
+                Products = repository.Products
+                .OrderBy(p => p.ProductId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+
+                pagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Products.Count()
+                }
+            };
+
+            return View(model);
+        }
     }
 }

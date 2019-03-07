@@ -1,0 +1,56 @@
+﻿@model OnlineInspection.WebUI.Models.ProductListViewModel
+
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="text-align:center">Product List</h2>
+
+@foreach (var item in Model.Products)
+{
+
+    <div class="card mb-10 border-dark mb-3" style="max-width: 1240px; margin: auto  ">
+        <div class="card-header">
+            <h4>
+                Product Code: <span >  @Html.ActionLink(item.ProductCode, "EditProduct", "Admin", new { item.ProductId }, null)</span>
+                <span class="badge badge-secondary float-md-right"> @@price here</span>  <a class="float-md-right">Price:</a>
+            </h4>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="@Url.Content("~/IMG/" + item.Image)" height="300" width="300"  class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="d-inline-flex p-2 bd-highlight">
+
+                        <p>@item.Description</p>
+                    </div>
+
+                    <span class="float-md-right"><input type="checkbox" onclick="return false" readonly="readonly" />Active</span>
+
+                    <hr />
+                    <div class="justify-content-between" style="font-size:20px">
+                        <label class="d-flex justify ">Carton details</label>
+                        <span class="badge badge-pill badge-primary">Height: @@Height</span>
+                        <span class="badge badge-pill badge-primary">Width: @@Width</span>
+                        <span class="badge badge-pill badge-primary">Deepness: @@Deepness</span>
+                        <span class="badge badge-pill badge-primary">Qty per carton: @@carton</span>
+                        <span class="badge badge-pill badge-primary">Gross weight: @@carton</span>
+                        <span class="badge badge-pill badge-primary">Net weight: @@carton</span>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+    <div class="card-footer  ">
+        @Html.ActionLink("Add a new product", "CreateProduct", "Admin", null, new { @class = "btn btn-outline-dark" })
+        <span class="pagination justify-content-center">
+            @Html.PageLinks(Model.pagingInfo, x => Url.Action("ProductList", new { page = x }))
+        </span>
+
+    </div>

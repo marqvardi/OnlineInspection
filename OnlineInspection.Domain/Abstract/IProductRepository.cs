@@ -12,6 +12,7 @@ namespace OnlineInspection.Domain.Abstract
         IEnumerable<Product> Products { get; }
 
         void SaveProduct(Product product);
+        void SaveProductNoImage(Product product);
         Product DeleteProduct(int productId);
        // Product SearchProduct(Product text);
     }
