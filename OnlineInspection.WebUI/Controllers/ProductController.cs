@@ -8,47 +8,56 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineInspection.WebUI.Controllers
-{
+{   
     public class ProductController : Controller
     {
         public int PageSize = 10;
-        private readonly IProductRepository repository;
+        private readonly IProductRepository repositoryProduct;
+        private readonly ISupplierRepository repositorySupplier;
+        private readonly IOrderRepository repositoryOrder;
+        private readonly IItemOrderRepository repositryItemOrder;
 
         public ProductController()
         {
 
         }
 
-        public ProductController(IProductRepository repo)
+        public ProductController(IProductRepository repo, ISupplierRepository repoSup, IOrderRepository repoOrder,
+            IItemOrderRepository repoItem)
         {
-            repository = repo;
-        }
-
-        public ViewResult List(int page = 1)
-        {
-            ProductListViewModel model = new ProductListViewModel
-            {
-                Products = repository.Products
-                .OrderBy(p => p.ProductId)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize),
-
-                pagingInfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = repository.Products.Count()
-                }
-            };
-
-            return View(model);
+            repositoryProduct = repo;
+            repositorySupplier = repoSup;
+            repositoryOrder = repoOrder;
+            repositryItemOrder = repoItem;
         }
 
         public ViewResult ProductList(int page = 1)
         {
             ProductListViewModel model = new ProductListViewModel
             {
-                Products = repository.Products
+                Products = repositoryProduct.Products
+                .Where(p => p.Active == true)
+                .OrderBy(p => p.ProductId)               
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+
+                pagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repositoryProduct.Products.Count()
+                }
+            };
+
+            return View(model);
+        }
+
+        public ViewResult DiscontinuedList(int page = 1)
+        {
+            ProductListViewModel model = new ProductListViewModel
+            {
+                Products = repositoryProduct.Products
+                .Where(p => p.Active == false)
                 .OrderBy(p => p.ProductId)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize),
@@ -57,7 +66,7 @@ namespace OnlineInspection.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Products.Count()
+                    TotalItems = repositoryProduct.Products.Count()
                 }
             };
 

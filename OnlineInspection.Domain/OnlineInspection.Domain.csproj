@@ -63,16 +63,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IInspectionRepository.cs" />
     <Compile Include="Abstract\IItemOrderRepository.cs" />
+    <Compile Include="Abstract\IItemRepository.cs" />
+    <Compile Include="Abstract\IOrderProcessor.cs" />
     <Compile Include="Abstract\IOrderRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
     <Compile Include="Abstract\ISupplierRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\EFDbInspectionRepository.cs" />
+    <Compile Include="Concrete\EFDbItemRepository.cs" />
     <Compile Include="Concrete\EFOrderRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
     <Compile Include="Concrete\EFSupplierRepository.cs" />
     <Compile Include="Concrete\EFItemOrderRepository.cs" />
+    <Compile Include="Concrete\EmailOrderProcessor.cs" />
+    <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\CartLine.cs" />
+    <Compile Include="Entities\Cultures.cs" />
+    <Compile Include="Entities\Inspection.cs" />
     <Compile Include="Entities\ItemOrder.cs" />
+    <Compile Include="Entities\Items.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Supplier.cs" />

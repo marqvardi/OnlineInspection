@@ -14,14 +14,14 @@ namespace OnlineInspection.Domain.Concrete
 
         public IEnumerable<ItemOrder> itemOrders
         {
-            get { return context.itemOrders; }
+            get { return context.ItemOrders; }
         }
 
         public void SaveProblem(ItemOrder itemOrder)
         {
             if (itemOrder.ProductId == 0)
             {
-                context.itemOrders.Add(itemOrder);
+                context.ItemOrders.Add(itemOrder);
             }
             else
             {
@@ -29,10 +29,8 @@ namespace OnlineInspection.Domain.Concrete
                 // if (Dbentry != null)
                 // {
                 ItemOrder Dbentry = new ItemOrder();
-                    Dbentry.ProductId = itemOrder.ProductId;
-                    Dbentry.OrderId = itemOrder.OrderId;
-                    Dbentry.DescriptionProblem = itemOrder.DescriptionProblem;
-                    Dbentry.PictureProblem = itemOrder.PictureProblem;
+                Dbentry.ProductId = itemOrder.ProductId;
+                Dbentry.OrderId = itemOrder.OrderId;                   
                // }
             }
             context.SaveChanges();

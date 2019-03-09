@@ -18,14 +18,16 @@ namespace OnlineInspection.WebUI.Controllers
         private readonly ISupplierRepository repositorySupplier;
         private readonly IItemOrderRepository repositoryItemOrder;
         private readonly IProductRepository repositoryProduct;
+        private readonly IItemRepository repositoryItem;
 
         public AdminController(IOrderRepository repo, ISupplierRepository RepoSupplier,
-             IProductRepository repoProduct, IItemOrderRepository repoItemOrder)
+             IProductRepository repoProduct, IItemOrderRepository repoItemOrder, IItemRepository repoItem)
         {
             repositoryOrder = repo;
             repositorySupplier = RepoSupplier;
             repositoryItemOrder = repoItemOrder;
             repositoryProduct = repoProduct;
+            repositoryItem = repoItem;
         }
 
         public ViewResult EditProduct(int ProductId)
@@ -48,7 +50,7 @@ namespace OnlineInspection.WebUI.Controllers
                 repositoryProduct.SaveProductNoImage(product);
                 TempData["Message"] = string.Format("{0} has been saved.",
                     product.ProductCode);
-                return RedirectToAction("List", "Product");
+                return RedirectToAction("ProductList", "Product");
 
             }
             var originalExtension = Path.GetExtension(file.FileName);
@@ -60,7 +62,7 @@ namespace OnlineInspection.WebUI.Controllers
             repositoryProduct.SaveProduct(product);
             TempData["Message"] = string.Format("{0} has been saved.",
                 product.ProductCode);
-            return RedirectToAction("List", "Product");
+            return RedirectToAction("ProductList", "Product");
             //}
             //else
             //{
@@ -76,6 +78,39 @@ namespace OnlineInspection.WebUI.Controllers
 
         [HttpPost]
         public ActionResult CreateProduct(Product product)
+        {
+            //Precisa consertar para quando nao tiver upload de imagem.
+
+            var file = Request.Files["imagem"];
+            var originalExtension = Path.GetExtension(file.FileName);
+            var tempFileName = Path.ChangeExtension(Path.GetFileName(Path.GetTempFileName()), originalExtension);
+
+            product.Image = tempFileName;
+            file.SaveAs(Server.MapPath($"~/IMG/{tempFileName}"));
+
+            // if (ModelState.IsValid)
+            //{
+            repositoryProduct.SaveProduct(product);
+            TempData["Message"] = string.Format("{0} has been created.",
+                product.ProductCode);
+            return RedirectToAction("ProductList", "Product");
+        }
+        //else
+        //{
+        //    //Something wrong with values
+        //    return View(product);
+        //}
+
+
+
+
+        public ViewResult CreateProductOld()
+        {
+            return View(new Product());
+        }
+
+        [HttpPost]
+        public ActionResult CreateProductOld(Product product)
         {
             var file = Request.Files["imagem"];
             var originalExtension = Path.GetExtension(file.FileName);
@@ -175,18 +210,46 @@ namespace OnlineInspection.WebUI.Controllers
             var model = from o in orders
                         join s in sup
                         on o.SupplierId equals s.SupplierId into os
+                        orderby(o.DateDelivery)
                         from s in os.DefaultIfEmpty()
                         select new OrderListViewModel
                         {
-                            order = o,
+                            Order = o,
                             Supplier = s,
-                            PagingInfo = new PagingInfo
+                            pagingInfo = new PagingInfo
                             {
                                 CurrentPage = page,
                                 ItemsPerPage = PageSize,
                                 TotalItems = repositoryOrder.Orders.Count()
                             }
                         };
+            return View(model);
+        }
+
+        public ViewResult CreateOrder(int page = 1)
+        {
+            //from p in repositoryProduct.Products
+            //join s in repositorySupplier.Suppliers on p.SupplierId equals s.SupplierId into ios
+            //join i in repositoryItem.items on p.ProductId equals i.ProductId into ioss
+
+
+            var model = from p in repositoryProduct.Products
+                        join s in repositorySupplier.Suppliers on p.SupplierId equals s.SupplierId //into ios                       
+                        orderby p.ProductId
+                       // from s in ios.DefaultIfEmpty()
+                        select new OrderListViewModel
+                        {
+                            //Items = ioss,
+                            Supplier = s,
+                            Product = p,
+                            pagingInfo = new PagingInfo
+                            {
+                                CurrentPage = page,
+                                ItemsPerPage = PageSize,
+                                TotalItems = repositoryOrder.Orders.Count(),
+                            }
+                        };
+
             return View(model);
         }
 
@@ -202,24 +265,24 @@ namespace OnlineInspection.WebUI.Controllers
         //    return View(itemOrders1);
         //}
 
-
         public ViewResult ItemOrder(int id, int page = 1)
         {
-            IEnumerable<ItemOrder> itemOrders = repositoryItemOrder.itemOrders.Where(o => o.OrderId == id).ToList();
+            //IEnumerable<ItemOrder> itemOrders = repositoryItemOrder.itemOrders.Where(i=> i.OrderId == id).ToList();            
 
-            IEnumerable<ItemOrder> itemOrders1 = itemOrders
-                .GroupBy(p => p.ProductId)
-                .Select(group => group.First());
+            //IEnumerable<ItemOrder> itemOrders1 = itemOrders
+            //    .GroupBy(p => p.ProductId)
+            //    .Select(group => group.First());
 
+            IEnumerable<Items> items = repositoryItem.items.Where(i => i.OrderId == id).ToList();
 
-            var model = from i in itemOrders1
+            var model = from i in items
                         join p in repositoryProduct.Products on i.ProductId equals p.ProductId into ip
                         where i.OrderId == id
                         orderby i.ProductId
                         from p in ip.DefaultIfEmpty()
                         select new ItemOrderListViewModel
                         {
-                            itemOrder = i,
+                            items = i,
                             product = p,
                             pagingInfo = new PagingInfo
                             {
@@ -260,54 +323,7 @@ namespace OnlineInspection.WebUI.Controllers
         {
             return View();
         }
-
-        public ActionResult CreateOrder()
-        {
-            //Order order = new Order();
-            //Supplier supplier = new Supplier();
-
-            //supplier.Contact = "Maria";
-            //supplier.Email = "wdwadwa@fass.com";
-            //supplier.CompanyName = "Empresa nome aqui";
-            //order.ChinaInvoice = "China invoice numero aqui";
-            //order.SMReference = "PRocesso 2.000";
-
-            //OrderListViewModel o = new OrderListViewModel
-            //{
-            //    order = order,
-            //    Supplier = supplier,                 
-            //};
-                        
-            return View(new OrderListViewModel());
-        }
-
-        //[HttpPost]
-        //public ActionResult AddNewInspectionDetail(ItemOrder item)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //    }
-        //}
-
-        //[HttpPost]
-        //public ActionResult Search(string text)
-        //{
-        //    Product searchProduct = new Product
-        //    {
-        //        Description = text,
-        //        ProductCode = text
-        //    };            
-
-        //    Product found = repository.SearchProduct(searchProduct);
-
-        //    if (found != null)
-        //    {
-
-        //    }
-
-        //    return RedirectToAction("List", "Product");
-
-        //}
+             
     }
+
 }

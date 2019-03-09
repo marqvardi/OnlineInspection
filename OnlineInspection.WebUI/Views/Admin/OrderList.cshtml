@@ -12,8 +12,8 @@
 <div class="form-horizontal col-md-10" style="margin:auto">
 
 
-    <table class="table table-striped table-hover table-bordered col-md-4" style="margin:auto !important">
-        <tr>
+    <table class="table table-striped table-hover table-bordered col-md-10" style="margin:auto !important">
+        <tr>           
             <th>
                 Company Name
             </th>
@@ -23,20 +23,32 @@
             <th>
                 China Invoice
             </th>
+            <th>
+                Total 
+            </th>
+            <th>
+                Delivery date
+            </th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
+            <tr>               
                 <td style="color:red">
-                    @Html.ActionLink(item.Supplier.CompanyName, "ItemOrder", "Admin", new { id = item.order.OrderId }, null)
+                    @Html.ActionLink(item.Supplier.CompanyName, "ItemOrder", "Admin", new { id = item.Order.OrderId }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.order.SMReference, "ItemOrder", "Admin", new { id = item.order.OrderId }, null)
+                    @Html.ActionLink(item.Order.SMReference, "ItemOrder", "Admin", new { id = item.Order.OrderId }, null)
                 </td>
 
                 <td>
-                    @Html.ActionLink(item.order.ChinaInvoice, "ItemOrder", "Admin", new { id = item.order.OrderId }, null)
+                    @Html.ActionLink(item.Order.ChinaInvoice, "ItemOrder", "Admin", new { id = item.Order.OrderId }, null)
+                </td>
+                <td>
+                    @item.Order.TotalPrice.ToString("C", Cultures.USA)
+                </td>
+                <td>
+                    @item.Order.DateDelivery.ToString("dd/MM/yyyy")
                 </td>
             </tr>
         }

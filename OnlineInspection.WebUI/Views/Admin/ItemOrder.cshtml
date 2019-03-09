@@ -34,19 +34,19 @@
         {
             <tr>
                 <td style="color:red; vertical-align:middle">
-                    @Html.ActionLink(item.itemOrder.OrderId.ToString(), "ProblemItemList", "Admin", new { orderId = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
+                    @Html.ActionLink(item.items.OrderId.ToString(), "ProblemItemList", "Admin", new { orderId = item.items.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td style="vertical-align:middle">
-                    @Html.ActionLink(item.itemOrder.ProductId.ToString(), "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
+                    @Html.ActionLink(item.items.ProductId.ToString(), "ProblemItemList", "Admin", new { id = item.items.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td>
                     <img src="@Url.Content("~/IMG/" + item.product.Image)" height="250" width="250" />
                 </td>
                 <td style="vertical-align:middle">
-                    @Html.ActionLink(item.product.ProductCode, "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
+                    @Html.ActionLink(item.product.ProductCode, "ProblemItemList", "Admin", new { id = item.items.OrderId, productId = item.product.ProductId }, null)
                 </td>
                 <td style="vertical-align:middle">
-                    @Html.ActionLink(item.product.Description, "ProblemItemList", "Admin", new { id = item.itemOrder.OrderId, productId = item.product.ProductId }, null)
+                    @Html.ActionLink(item.product.Description, "ProblemItemList", "Admin", new { id = item.items.OrderId, productId = item.product.ProductId }, null)
                 </td>
             </tr>
         }

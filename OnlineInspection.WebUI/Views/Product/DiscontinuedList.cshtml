@@ -3,11 +3,11 @@
 @model ProductListViewModel
 
 @{
-    ViewBag.Title = "ProductList";
+    ViewBag.Title = "Discontinued List";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 style="text-align:center">Product List</h2>
+<h2 style="text-align:center">Discontinued List @Model.Products.Count()</h2>
 
 @foreach (var item in Model.Products)
 {
@@ -25,7 +25,6 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <div class="d-inline-flex p-2 bd-highlight">
-
 
                         <p>@item.Description</p>
                     </div>
@@ -49,10 +48,9 @@
     </div>
 }
 
-<div class="card-footer  ">
+@*<div class="card-footer  ">
     @Html.ActionLink("Add a new product", "CreateProduct", "Admin", null, new { @class = "btn btn-outline-dark" })
     <span class="pagination justify-content-center">
-        @Html.PageLinks(Model.pagingInfo, x => Url.Action("ProductList", new { page = x }))
+        @Html.PageLinks(Model.pagingInfo, x => Url.Action("DiscontinuedList", new { page = x }))
     </span>
-
-</div>
+</div>*@

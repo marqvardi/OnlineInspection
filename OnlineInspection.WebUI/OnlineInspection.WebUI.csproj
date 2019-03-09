@@ -171,7 +171,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Binders\CartModelBinder.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -180,6 +182,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
+    <Compile Include="Models\AddToCartResult.cs" />
+    <Compile Include="Models\CartIndexViewModel.cs" />
+    <Compile Include="Models\Cultures.cs" />
     <Compile Include="Models\ItemOrderListViewModel.cs" />
     <Compile Include="Models\OrderListViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
@@ -282,7 +287,7 @@
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Admin\EditProduct.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\CreateProduct.cshtml" />
+    <Content Include="Views\Admin\CreateProductOld.cshtml" />
     <Content Include="Views\Supplier\List.cshtml" />
     <Content Include="Views\Admin\EditSupplier.cshtml" />
     <Content Include="Views\Admin\CreateSupplier.cshtml" />
@@ -291,11 +296,16 @@
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\ItemOrder.cshtml" />
-    <Content Include="Views\Admin\ProblemItemList.cshtml" />
     <Content Include="Views\Admin\OrderDetails.cshtml" />
     <Content Include="Views\Admin\AddNewInspectionDetail.cshtml" />
-    <Content Include="Views\Admin\CreateOrder.cshtml" />
+    <Content Include="Views\Admin\CreateOrderOld.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Admin\CreateProduct.cshtml" />
+    <Content Include="Views\Cart\Summary.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Admin\CreateOrder.cshtml" />
+    <Content Include="Views\Product\DiscontinuedList.cshtml" />
+    <Content Include="Views\Shared\__AdminOrderLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

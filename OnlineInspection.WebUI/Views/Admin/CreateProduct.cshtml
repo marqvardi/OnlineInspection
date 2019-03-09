@@ -1,19 +1,109 @@
 ﻿@model OnlineInspection.Domain.Entities.Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Product";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 style="text-align:center">Create a new product</h2>
+<h2 style="text-align:center">Create Product</h2>
 
 @using (Html.BeginForm("CreateProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-group">
+    <div class="card mb-10 border-dark mb-3" style="max-width: 1240px; margin: auto  ">
+        <div class="card-header">
+            <div>
+                Product Code: <span class="badge badge-secondary"> @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control", @style = "width:200px" } })</span>
+                <span class="badge badge-secondary float-md-right">@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })</span> <a class="float-md-right">Price:</a>
+                @Html.ValidationMessageFor(model => model.ProductCode, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <div class="form-horizontal col-md-6" style="margin:auto">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                @*<img src="@Url.Content("~/IMG/" + item.Image)" height="300" width="300" class="card-img" alt="...">*@
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="d-inline-flex p-2 bd-highlight">
+                        <h4>  Description</h4>
+                        <span>
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+
+                    <span class="float-md-right">
+                        @*<input type="checkbox" onclick="return false" readonly="readonly" />*@
+                        @Html.EditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                        Active
+                    </span>
+
+                    <hr />
+                    <div class="justify-content-between" style="font-size:20px">
+                        <label class="d-flex justify ">Carton details</label>
+                        <span class="badge badge-pill badge-primary">
+                            Height:
+                            @Html.EditorFor(model => model.CartonHeight, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CartonHeight, "", new { @class = "text-danger" })CM
+                        </span>
+                        <span class="badge badge-pill badge-primary">
+                            Width:
+                            @Html.EditorFor(model => model.CartonWidth, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CartonWidth, "", new { @class = "text-danger" }) CM
+                        </span>
+                        <span class="badge badge-pill badge-primary">
+                            Deepness:
+                            @Html.EditorFor(model => model.CartonDeep, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CartonDeep, "", new { @class = "text-danger" }) CM
+                        </span>
+                        <span class="badge badge-pill badge-success">
+                            Qty per carton:
+                            @Html.EditorFor(model => model.QtyPerCarton, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.QtyPerCarton, "", new { @class = "text-danger" }) PCS
+                        </span>
+                        <span class="badge badge-pill badge-info">
+                            Gross weight:
+                            @Html.EditorFor(model => model.Grosskgs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Grosskgs, "", new { @class = "text-danger" }) Kgs
+                        </span>
+                        <span class="badge badge-pill badge-info">
+                            Net weight:
+                            @Html.EditorFor(model => model.NetKgs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NetKgs, "", new { @class = "text-danger" }) Kgs
+                        </span>
+                    </div>
+                    <hr />
+                    <div class="form-group ">
+                        <div class="fileUpload btn btn-default">
+                            <input id="uploadBtn" type="file" class="upload" multiple="multiple" name="imagem" />
+                        </div>
+                        <div id="upload_prev"></div>
+                        <div style="clear:both;"></div>
+                        @*@Html.TextBoxFor(x => x.Image, new { @type = "file", @id = "imageupload", @accept = "image/*", @class = "form-control", @placeholder = "Image" })*@
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group float-md-right">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create a new product" class="btn btn-outline-dark" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center">
+        @Html.ActionLink("Back to List", "ProductList", "Product")
+    </div>
+
+
+
+    @*<div class="form-horizontal">
             <h4>Product</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -34,52 +124,84 @@
             </div>
 
             <div class="form-group">
-                <div class="fileUpload btn btn-default">
-                    <input id="uploadBtn" type="file" class="upload" multiple="multiple" name="imagem" />
+                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                 </div>
-                <div id="upload_prev"></div>
-                <div style="clear:both;"></div>
             </div>
 
-            @*<div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-            @*<div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <p style="margin-left:30px"><span class="input-group-text" id="inputGroupFileAddon01">Upload your picture.</span> </p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
 
-            <div class="custom-file">
-                <p style="margin-left:30px"> <input type="file" class="custom-file-input" name="imagem" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> </p>
-                <p style="margin-left:30px">  <br /><label class="custom-file-label" for="inputGroupFile01">Choose file</label> </p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CartonWidth, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CartonWidth, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CartonWidth, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>*@
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.CartonHeight, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CartonHeight, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CartonHeight, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-            @*<input id="uploadFile" placeholder="Add files from My Computer" class="steptextboxq3" />
-        <div class="fileUpload btn btn-primary">
-            <span>Browse</span>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CartonDeep, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CartonDeep, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CartonDeep, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-            <input id="uploadBtn" type="file" class="upload" multiple="multiple" name="imagem" />
-        </div>
-        <input id="filename" type="text" />
-        <div id="upload_prev"></div>
-        <div style="clear:both;"></div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.NetKgs, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NetKgs, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NetKgs, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Grosskgs, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Grosskgs, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Grosskgs, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.QtyPerCarton, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QtyPerCarton, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QtyPerCarton, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-outline-dark" />
+                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 }
 
-<div class="form-horizontal col-md-6" style="margin:auto">
-    @Html.ActionLink("Back to List", "ProductList", "Product")
-</div>

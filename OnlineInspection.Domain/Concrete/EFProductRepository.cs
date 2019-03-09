@@ -40,7 +40,15 @@ namespace OnlineInspection.Domain.Concrete
                 if (Dbentry != null)
                 {
                     Dbentry.ProductCode = product.ProductCode;
-                    Dbentry.Description = product.Description;                   
+                    Dbentry.Description = product.Description;
+                    Dbentry.Active = product.Active;
+                    Dbentry.CartonDeep = product.CartonDeep;
+                    Dbentry.CartonHeight = product.CartonHeight;
+                    Dbentry.CartonWidth = product.CartonWidth;
+                    Dbentry.Grosskgs = product.Grosskgs;
+                    Dbentry.NetKgs = product.NetKgs;
+                    Dbentry.Price = product.Price;
+                    Dbentry.QtyPerCarton = product.QtyPerCarton;
                 }
             }
             context.SaveChanges();
@@ -59,7 +67,14 @@ namespace OnlineInspection.Domain.Concrete
                 {
                     Dbentry.ProductCode = product.ProductCode;
                     Dbentry.Description = product.Description;
-                    Dbentry.Image = product.Image;                   
+                    Dbentry.Image = product.Image;
+                    Dbentry.Active = product.Active;
+                    Dbentry.CartonDeep = product.CartonDeep;
+                    Dbentry.CartonHeight = product.CartonHeight;
+                    Dbentry.CartonWidth = product.CartonWidth;
+                    Dbentry.Grosskgs = product.Grosskgs;
+                    Dbentry.NetKgs = product.NetKgs;
+                    Dbentry.Price = product.Price;
                 }
             }
             context.SaveChanges();

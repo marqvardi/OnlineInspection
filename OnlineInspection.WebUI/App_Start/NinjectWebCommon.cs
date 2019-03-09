@@ -68,7 +68,10 @@ namespace OnlineInspection.WebUI.App_Start
             kernel.Bind<ISupplierRepository>().To<EFSupplierRepository>();
             kernel.Bind<IOrderRepository>().To<EFOrderRepository>();
             kernel.Bind<IItemOrderRepository>().To<EFItemOrderRepository>();
+            kernel.Bind<IInspectionRepository>().To<EFDbInspectionRepository>();
+            kernel.Bind<IItemRepository>().To<EFDbItemRepository>();
 
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>();
 
             //Mock<IProductRepository> mock = new Mock<IProductRepository>();
             //mock.Setup(m => m.Products).Returns(new List<Product>)

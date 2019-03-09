@@ -16,6 +16,8 @@ namespace OnlineInspection.Domain.Concrete
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set;}
         public DbSet<Order> Orders { get; set; }
-        public DbSet<ItemOrder> itemOrders { get; set; }
+        public DbSet<ItemOrder> ItemOrders { get; set; }
+        public DbSet<Inspection> Inspections { get; set; }
+        public DbSet<Items> Items { get; set; }
     }
 }

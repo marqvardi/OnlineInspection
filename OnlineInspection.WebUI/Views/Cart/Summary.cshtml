@@ -1,0 +1,16 @@
+﻿@using OnlineInspection.Domain.Entities
+
+@model Cart
+
+<nav class="navbar navbar-expand-lg navbar-light bg-info fixed-bottom">
+    <div class="navbar-right">
+        @Html.ActionLink("Checkout", "Index", "Cart",
+        new { returnUrl = Request.Url.PathAndQuery },
+        new { @class = "btn btn-outline-dark navbar -btn"})
+    </div>
+
+    <div class="navbar-text">
+        <b>Your cart: </b>
+        <span id="cart-quantity">@Model.Lines.Count()</span> item(s)
+        <span id="cart-total">@Model.ComputeTotalValue().ToString("C2")</span></div>
+</nav>

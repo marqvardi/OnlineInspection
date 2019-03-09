@@ -1,0 +1,44 @@
+﻿@using OnlineInspection.Domain.Entities
+
+@model Cart
+
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-bottom">
+        <div class="navbar-right">
+            @Html.ActionLink("Checkout", "Index", "Cart",
+            new { returnUrl = Request.Url.PathAndQuery },
+            new { @class = "btn btn-outline-dark navbar -btn"})
+        </div>
+
+        <div class="navbar-text">
+            <b>Your cart: </b>
+            @Model.Lines.Sum(x => x.Quantity) item(s)
+            @Model.ComputeTotalValue().ToString("C", Cultures.USA)
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
