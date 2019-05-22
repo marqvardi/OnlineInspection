@@ -211,6 +211,7 @@
     <Content Include="Content\mdb.lite.css" />
     <Content Include="Content\mdb.lite.min.css" />
     <Content Include="Content\mdb.min.css" />
+    <Content Include="Content\sbadmin2\sb-admin-2.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
     <Content Include="favicon.ico" />
@@ -310,6 +311,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="IMG\" />
+    <Folder Include="Scripts\sbadmin2\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>

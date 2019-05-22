@@ -1,4 +1,4 @@
-﻿using OnlineInspection.Domain.Entities;
+﻿    using OnlineInspection.Domain.Entities;
 using OnlineInspection.WebUI.Binders;
 using System;
 using System.Collections.Generic;
